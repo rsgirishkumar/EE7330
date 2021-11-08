@@ -1,0 +1,234 @@
+\documentclass[a4paper]{article}
+
+\title{Lecture 10: PROOF TO THE CONVERSE OF \\CHANNEL CODING THEOREM}
+\author{Shashank Vatedka}
+
+\usepackage{./basicreq}
+\usepackage{./teaching_doc_macros}
+\graphicspath{ {./images/} }
+\DeclareMathOperator*{\maxi}{Max}
+%\DeclareMathOperator*{\lim}{Lim}
+\begin{document}
+
+
+%FILL IN THE RIGHT INFO.
+%\lecture{**LECTURE-NUMBER**}{**UNIT**}{**LECTURER**}{**SCRIBE**}
+\lecture{10}{CONVERSE OF CHANNEL CODING THEOREM}{Shashank Vatedka}{EE20RESCH14005}
+%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+
+% **** YOUR NOTES GO HERE:
+\section{GIST OF LECTURE 9}
+In the last lecture, we have seen the Fano's Inequality given as below.\\
+\subsection{Fano's Inequality}
+ If M and $\^M$  are jointly distributed and $P_e = Pr [M \neq \^M]$, then
+ \begin{align}
+     \begin{split}
+ $H(M\vert\^M)\ \leq \ H_2(P_e) + P_e log_2 |\cM|$\\
+    \end{split}
+\end{align}
+    The Fano's Inequality provides a lower bound on the entropy of the modulo-2 sum of two
+binary random vectors.
+\\
+\subsection{Channel Coding Theorem}
+\\
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=15.0cm]{POINT TO POINT COMMUNICATION SYSTEM}
+\caption{Point - to - Point Communication System}\label{fig:1}
+\end{figure} \\
+For a discrete memory-less channel (DMC), all rates below capacity C are achievable. Speciﬁcally, for
+every rate $R < C$, there exists a set of $(ENC_n,DEC_n)$ with maximum probability of error $P_e \to 0$.
+\\
+\begin{align}
+\begin{split}
+C=\maxi_{\mathbf{P_X}} I(X;Y)\\
+\end{split}
+\end{align}
+\\
+
+\\
+\subsection{Converse of Channel Coding Theorem}
+Conversely, any set of $(ENC_n,DEC_n)$ with $P_e \to 0$ must have $R \leq C$.
+\\
+\\
+In other way, \\
+\\
+Consider any sequence $(ENC_n,DEC_n)$ such that
+\begin{align}
+\begin{split}
+\liminf_{n \to \infty} \  \  \frac{k_n}{n} \geq C+ \epsilon\\
+$Then,$\\
+\liminf_{n \to \infty} \  \  P_e = Pr [M \neq \^M] \geq \epsilon
+\end{split}
+\end{align}
+\\
+\textbf{Tools Required}
+\begin{enumerate}
+    \item Fano's Inequality
+    \item For any $P_{X^{n}}$, if $Y^{n}$ is obtained by passing $X^{n}$ through a DMC with channel probability transition matrix $P_{Y\vert X}$, \\
+    \begin{align}
+        \begin{split}
+            I(X^{n};Y^{n}) \leq \Sigma_{i=1}^{n} \ \ I(X_i;Y_i) \leq nC\\
+        \end{split}
+    \end{align}
+    \\
+    This is true for a DMC. It provides an upper bound and is dependent on
+    \begin{align}
+        \begin{split}
+            P{(Y^n\vert X^n)} = \pi_{i=1}^n P{(Y_i\vert X_i)}
+        \end{split}
+    \end{align}
+\end{enumerate}
+\section{Proof of the Converse of Channel Coding Theorem}
+\subsection{Proof of $2^{nd}$ Tool}
+For a DMC, \\
+\begin{align}
+        \begin{split}
+            I(X^{n};Y^{n}) \leq \Sigma_{i=1}^{n} \ \ I(X_i;Y_i) \leq nC\\
+        \end{split}
+    \end{align}
+\begin{enumerate}
+    \item Proof of 
+    \begin{align}
+        \begin{split}
+        H(Y_i \vert Y_1.....Y_{i-1},X^n) \leq H(Y_i\vert X_i) ($in general$)\\
+        $else$\\
+         H(Y_i \vert Y_1.....Y_{i-1},X^n) = H(Y_i\vert X_i) ($only for DMC$)\\
+        $using$\\
+              P_{(Y^n\vert X^n)} = \pi_{i=1}^n P_{(Y_i\vert X_i)}
+        \end{split}
+    \end{align}
+        \\
+        \\
+        Given \\
+         \begin{align}
+        \begin{split}
+        H(Y_i \vert Y_1.....Y_{i-1},X^n) = H(Y_i\vert X_i) ($only for DMC$)\\
+        \end{split}
+        \end{align}
+        We know that, for a DMC\\
+        \begin{align}
+            \begin{split}
+                 P{(y_i \vert x_1.....x_n)} = P{(y_i\vert x_i)}\\
+        \because
+        P{(y_1....y_i \vert x_1.....x_n)} = P(y_1 \vert x_1) P(y_2 \vert x_2) ....P(y_i \vert x_i)
+            \end{split}
+        \end{align}
+        Using the above property,
+        \\
+        \begin{align}
+            \begin{split}
+                H(Y_i \vert Y_1.....Y_{i-1},X^n) \\
+                   = \Sigma_{X^n, y_1,....y_{i-1}} P(y_i, y_1.....y_{i-1},X^n) log_2\frac{1}{P(y_i \vert y_1.....y_{i-1},X^n)} \\
+        = \Sigma_{X^n, y_1,....y_{i-1}} P(y_i,x_i, y_1....y_{i-1},x_1....x_{i-1},x_{i+1}....x_n) log_2\frac{1}{P(y_i \vert y_1.....y_{i-1},X^n)}\\
+        \because P{(Y^n\vert X^n)} = \pi_{i=1}^n P{(Y_i\vert X_i)}\\
+        =\Sigma_{X^n, Y_1,....Y_{i-1}} P(Y_i,X_i, Y_1....Y_{i-1},X_1....X_{i-1},X_{i+1}....X_n) log_2\frac{1}{P(Y_i \vert X_i)}\\
+        = \Sigma_{x_i,y_i} P(y_i x_i) log_2 \frac{1}{P(y_i \vert x_i)}
+        = H(Y_i \vert X_i)
+        \end{split}
+    \end{align}
+    Here if the channel is any other such as Fading channel or memory channel then the above condition is not true since $Y_i$ is dependent on other $Y_i$.
+    
+    \item Using the Relation between Mutual Information, Entropy and Conditional Entropy,\\
+    \\
+    \begin{align}
+    \begin{split}
+        I(X^n;Y^n) = H(Y^n) - H(Y^n \vert X^n)\\
+        \\
+        $Using Chain rule of Conditional Entropy$\\
+        \Rightarrow I(X^n;Y^n)= \Sigma_{i=1}^n[H(Y_i \vert Y_1.....Y_{i-1}) - H(Y_i \vert Y_1.....Y_{i-1},X^n)]\\
+        $On conditioning$ \\
+        \Rightarrow I(X^n;Y^n) \leq \Sigma_{i=1}^n[H(Y_i) - H(Y_i \vert Y_1.....Y_{i-1},X^n)]\\
+        \Rightarrow I(X^n;Y^n) = \Sigma_{i=1}^n[H(Y_i) - H(Y_i \vert X_i)] $(from above)$\\
+        \Rightarrow I(X^n;Y^n) = \Sigma_{i=1}^nI(X_i;Y_i) 
+    \end{split}    
+    \end{align}
+    From Channel coding Theorem 
+    \begin{align}
+\begin{split}
+C=\maxi_{\mathbf{P_X}} I(X;Y)\\
+\end{split}
+\end{align}
+and $\because$ n distributions \\
+\begin{align}
+    \begin{split}
+         \Rightarrow I(X^n;Y^n) = \Sigma_{i=1}^nI(X_i;Y_i) \leq nC
+    \end{split}
+\end{align}
+    \item Proof of Converse
+    \begin{figure}[!ht]
+\centering
+\includegraphics[width=15.0cm]{p-p system1}
+\caption{Point - to - Point Communication System}\label{fig:2}
+\end{figure} \\
+Assuming $k_n$ input message bits which are iid unif $\approx$ [0,1]. The entropy of $k_n$ is given by $H(M^{k_n})$.\\
+Use Fano's Inequality for obtaining a lower bound for $P_e$. For a good code, $P_e$ will be vanishing and for a bad code $P_e$ may equal 1.
+\begin{align}
+    \begin{split}
+        k_n = H(M^{k_n}) = H(M^{k_n} \vert \^M^{k_n}) + I(M^{k_n}; \^M^{k_n})\\
+        \leq H_2(P_e) + P_e log_2\vert\cM\vert + I(M^{k_n}; \^M^{k_n})\\
+        \leq H_2(P_e) + P_e k_n + I(M^{k_n}; \^M^{k_n})\\
+    \end{split}
+\end{align}
+By using data processing inequality and tool 2, $I(M^{k_n}; \^M^{k_n})$ may be written as\\
+\begin{align}
+    \begin{split}
+        I(M^{k_n}; \^M^{k_n}) \leq nC \\
+        \because I(M^{k_n}; \^M^{k_n}) \leq I(X^n; \Y^n) \ $from block diagram above$\\
+         \Rightarrow k_n \leq H_2(P_e) + P_e k_n + nC\\
+         \Rightarrow k_n - nC - P_e k_n \leq H_2(P_e) \\
+    \end{split}
+\end{align}
+Now divide on both sides by n,
+\begin{align}
+    \begin{split}
+        \Rightarrow \frac{k_n - nC - P_e k_n}{n} \leq \frac{H_2(P_e)}{n}\\
+        \Rightarrow \frac{k_n(1-P_e)}{n} - C \leq \frac{H_2(P_e)}{n}
+    \end{split}
+\end{align}
+Now apply limits on both sides.\\
+Suppose, in any DMC, operation is running at rate less than Capacity, then
+\begin{align}
+    \begin{split}
+        \Rightarrow \limsup_{n\to\infty} (\frac{k_n(1-P_e)}{n} - C - \frac{H_2(P_e)}{n}) \leq 0\\
+        $Assume$
+        \ R = \lim_{n\to\infty} \frac{k_n}{n}\\
+        $and$
+        \limsup_{n\to\infty} \frac{H_2(P_e)}{n} =0\\
+        \Rightarrow R (1-\limsup_{n\to\infty} P_e) - C - 0) \leq 0\\
+        \Rightarrow \limsup_{n\to\infty} P_e \geq \frac{R-C}{R} \leq 0\\
+    \end{split}
+\end{align}
+\textbf{Inference} This gives trivial lower bound for $P_e$ which is always negative and is not possible.
+Assuming the rate of operation is greater than capacity,i.e if $R>C$
+\begin{align}
+    \begin{split}
+        $Assume$
+        \ R - C = \epsilon $and$
+        \Rightarrow \limsup_{n\to\infty} P_e \geq \frac{\epsilon}{R}\\
+    \end{split}
+\end{align}
+\textbf{Inference} If $R> C$, the probability of error is bounded away from 0 for sufficiently large n. This proves that there exists an error and always bounded by $\epsilon$. This converse is sometimes called $weak converse$ to the channel coding theorem. It is also possible to prove a $strong converse$, which states that for rates above capacity, the probability of error goes exponentially to 1. The sudden error transition is called Phase transition phenomenon as shown in figure. 
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=5cm, height=4cm]{images/perrorvsratecurve.png}
+\caption{$P_e$ vs Rate Curve}\label{fig:1}
+\end{figure} \\
+This sharp transition can be proved and will be will be decreasing at $2^{-\alpha n}$ for $R<C$.
+\end{enumerate}
+\subsection{Next Class}
+The next class will cover about Mrs. Greber's Lemma.
+
+
+% Some general latex examples and examples making use of the
+% macros follow.  
+%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+%**** ARE NEVER READ BY ANYBODY.
+
+
+
+
+
+
+\end{document}
+
